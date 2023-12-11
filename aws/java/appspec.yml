@@ -1,0 +1,23 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /home/ec2-user/app/nacos/backend
+hooks:
+  BeforeInstall:
+    - location: before-install.sh
+      timeout: 300
+      runas: root
+  AfterInstall:
+    - location: after-install.sh
+      timeout: 300
+  ApplicationStart:
+    - location: startup.sh
+      timeout: 300
+      runas: root
+
+permissions:
+  - object: /home/ec2-user/app/nacos/backend
+    owner: root
+    group: root
+    mode: 755
