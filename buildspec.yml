@@ -12,7 +12,7 @@ phases:
   post_build:
     commands:
       - echo "Packaging the Spring Boot application..."
-      - mvn -Prelease-nacos -Dmaven.test.skip=true clean install -U
+      - mvn -Prelease-nacos -Dmaven.test.skip=true -Drat.skip=true clean install -U
       - zip -j  backend-pkg.zip distribution/target/nacos-server-2.3.0/nacos/* aws/java/*
 artifacts:
   files:
