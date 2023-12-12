@@ -1,6 +1,6 @@
 #!/bin/bash
 cd /home/ec2-user/app/nacos/backend/
-tar -xf /home/ec2-user/app/nacos/backend/backend-pkg.tar
+sudo tar -xf /home/ec2-user/app/nacos/backend/backend-pkg.tar
 echo "执行摘流操作。。AWS 支持load balancer主动摘流，这里休眠15s足够"
 #curl --location --request POST 'http://127.0.0.1:8080/nacos/api/v1/maintenance/offline' --header 'Authorization: Basic dmNjLXRyYWFmOGYyZGIxNTQ4'
 #sleep 15s
@@ -40,11 +40,11 @@ echo "进程已经停止"
 echo "开始启动"
 if [ "$DEPLOYMENT_GROUP_NAME" == "uat" ]
 then
-    sh /home/ec2-user/app/nacos/backend/nacos/bin/startup.sh -m standalone
+    sudo sh /home/ec2-user/app/nacos/backend/nacos/bin/startup.sh -m standalone
 
 elif [ "$DEPLOYMENT_GROUP_NAME" == "prod" ]
 then
-    sh /home/ec2-user/app/nacos/backend/nacos/bin/startup.sh -m standalone
+    sudo sh /home/ec2-user/app/nacos/backend/nacos/bin/startup.sh -m standalone
 else
    "faield...$DEPLOYMENT_GROUP_NAME not found" > catalina-ec2-user.out
 fi
