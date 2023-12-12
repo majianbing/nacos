@@ -1,6 +1,6 @@
 #!/bin/bash
 cd /home/ec2-user/app/nacos/backend/
-tar -zxvf /home/ec2-user/app/nacos/backend/backend-pkg.tar
+tar -xf /home/ec2-user/app/nacos/backend/backend-pkg.tar
 echo "执行摘流操作。。AWS 支持load balancer主动摘流，这里休眠15s足够"
 #curl --location --request POST 'http://127.0.0.1:8080/nacos/api/v1/maintenance/offline' --header 'Authorization: Basic dmNjLXRyYWFmOGYyZGIxNTQ4'
 #sleep 15s
@@ -8,7 +8,7 @@ echo "执行摘流操作。。AWS 支持load balancer主动摘流，这里休眠
 
 echo "停止进程"
 
-PID=`ps -eaf | grep 'payment' | grep -v grep | awk '{print $2}'`
+PID=`ps -eaf | grep 'nacos' | grep -v grep | awk '{print $2}'`
 
 if [[ -n "$PID" ]]; then
   echo "killing $PID"
@@ -40,11 +40,11 @@ echo "进程已经停止"
 echo "开始启动"
 if [ "$DEPLOYMENT_GROUP_NAME" == "uat" ]
 then
-    nohup java -jar /home/ec2-user/app/nacos/backend/payment-v1.0.jar --spring.profiles.active=awsuat > catalina-ec2-user.out 2>&1 &
+    sh /home/ec2-user/app/nacos/backend/nacos/bin/startup.sh -m standalone
 
 elif [ "$DEPLOYMENT_GROUP_NAME" == "prod" ]
 then
-    nohup java -jar /home/ec2-user/app/nacos/backend/payment-v1.0.jar --spring.profiles.active=awsprod > catalina-ec2-user.out 2>&1 &
+    sh /home/ec2-user/app/nacos/backend/nacos/bin/startup.sh -m standalone
 else
    "faield...$DEPLOYMENT_GROUP_NAME not found" > catalina-ec2-user.out
 fi
@@ -53,7 +53,7 @@ fi
 sleep 5s
 
 # Check if the "myapp" process is running
-if ps aux | grep -v grep | grep "payment" > /dev/null
+if ps aux | grep -v grep | grep "nacos" > /dev/null
 then
   echo "Application is running."
   exit 0 # Success (zero exit code)
