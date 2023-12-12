@@ -22,6 +22,10 @@ phases:
 artifacts:
   files:
     - backend-pkg.zip
+    - aws/java/appspec.yml
+    - aws/java/startup.sh
+    - aws/java/before-install.sh
+    - aws/java/after-install.sh
   discard-paths: yes
 cache:
   paths:
