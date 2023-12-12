@@ -15,13 +15,11 @@ phases:
       - mvn -Prelease-nacos -Dmaven.test.skip=true -Drat.skip=true clean install -U
       - cp -R aws/java/* distribution/target/nacos-server-2.3.0/
       - cd distribution/target/nacos-server-2.3.0/
-      - tar -cvf archive.tar ./
-      - gzip archive.tar
-      - mv archive.tar.gz backend-pkg.zip
-      - mv backend-pkg.zip ../../../
+      - tar -cvf backend-pkg.tar ./
+      - mv backend-pkg.tar ../../../
 artifacts:
   files:
-    - backend-pkg.zip
+    - backend-pkg.tar
     - aws/java/appspec.yml
     - aws/java/startup.sh
     - aws/java/before-install.sh

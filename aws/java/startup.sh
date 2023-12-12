@@ -1,5 +1,6 @@
 #!/bin/bash
 cd /home/ec2-user/app/nacos/backend/
+tar -zxvf /home/ec2-user/app/nacos/backend/backend-pkg.tar
 echo "执行摘流操作。。AWS 支持load balancer主动摘流，这里休眠15s足够"
 #curl --location --request POST 'http://127.0.0.1:8080/nacos/api/v1/maintenance/offline' --header 'Authorization: Basic dmNjLXRyYWFmOGYyZGIxNTQ4'
 #sleep 15s
